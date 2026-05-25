@@ -1,0 +1,326 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Beit Al-Qahwa - Owner Dashboard</title>
+  <meta name="description" content="Owner controls for Beit Al-Qahwa customer website." />
+  <link rel="stylesheet" href="admin.css" />
+</head>
+<body class="adminBody">
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html" aria-label="Back to customer website">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <h1>Beit Al-Qahwa <small>Owner Dashboard</small></h1>
+        </div>
+      </a>
+      <nav aria-label="Admin actions">
+        <a class="chip" href="index2.html" target="_blank" rel="noopener">Customer View</a>
+        <button class="chip" id="exportTop">Export Data</button>
+        <button class="cta danger" id="logoutBtn">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <div id="loginScreen" class="loginWrap">
+    <div class="kicker"><span class="dot"></span> Owner Access</div>
+    <h2 style="margin-top:14px;">Control the cafe without touching the customer design.</h2>
+    <p>Enter the owner PIN to manage menu items, events, tables, reservations, and homepage notices.</p>
+    <div class="field">
+      <label for="pinInput">Owner PIN</label>
+      <input id="pinInput" type="password" placeholder="Enter PIN" autocomplete="current-password" />
+    </div>
+    <div class="formActions">
+      <button class="btn primary" id="loginBtn">Enter Dashboard</button>
+    </div>
+  </div>
+
+  <main id="adminApp" class="container adminShell" hidden>
+    <div class="adminHero">
+      <div class="kicker"><span class="dot"></span> Live Control Panel</div>
+      <h2 style="margin-top:14px;">Owner operations, customer design untouched.</h2>
+      <p>Every change here updates the customer page through shared browser storage. This is the local working version; Firebase can later replace the storage layer for live multi-device publishing.</p>
+      <div class="dashboardStats" id="stats"></div>
+    </div>
+
+    <div class="adminGrid">
+      <aside class="card adminNav" aria-label="Dashboard sections">
+        <button class="chip active" data-panel="menuPanel">Menu Manager</button>
+        <button class="chip" data-panel="categoriesPanel">Categories</button>
+        <button class="chip" data-panel="eventsPanel">Events Board</button>
+        <button class="chip" data-panel="tablesPanel">Tables</button>
+        <button class="chip" data-panel="reservationsPanel">Reservations</button>
+        <button class="chip" data-panel="cafesPanel">Cafe Finder</button>
+        <button class="chip" data-panel="collectionsPanel">Collections</button>
+        <button class="chip" data-panel="galleryPanel">Gallery</button>
+        <button class="chip" data-panel="reviewsPanel">Reviews</button>
+        <button class="chip" data-panel="settingsPanel">Settings</button>
+        <button class="chip" data-panel="dataPanel">Backup</button>
+      </aside>
+
+      <div class="stack">
+        <section class="card cardPad adminPanel active" id="menuPanel">
+          <h3>Menu Manager</h3>
+          <p>Add, edit, hide, or delete menu items. Hidden items disappear from the customer website without breaking the design.</p>
+          <div class="adminForm">
+            <input type="hidden" id="menuId" />
+            <div class="field"><label for="menuName">Item name</label><input id="menuName" placeholder="Lebanese Coffee" /></div>
+            <div class="field"><label for="menuPrice">Price</label><input id="menuPrice" placeholder="LBP 180k" /></div>
+            <div class="field"><label for="menuCat">Category</label><select id="menuCat"></select></div>
+            <div class="field"><label for="menuVibe">Vibe</label><select id="menuVibe"><option value="traditional">Traditional</option><option value="study">Study</option><option value="outdoor">Outdoor</option><option value="work">Work-friendly</option><option value="calm">Calm</option></select></div>
+            <div class="field"><label for="menuTier">Price tier</label><select id="menuTier"><option value="$">Budget</option><option value="$$">Mid-range</option><option value="$$$">Premium</option></select></div>
+            <div class="field"><label for="menuBadge">Badge</label><input id="menuBadge" placeholder="Best seller" /></div>
+            <div class="field"><label for="menuVisible">Visibility</label><select id="menuVisible"><option value="true">Visible</option><option value="false">Hidden</option></select></div>
+            <div class="field full"><label for="menuDesc">Description</label><textarea id="menuDesc" placeholder="Short description"></textarea></div>
+          </div>
+          <div class="formActions">
+            <button class="btn primary" id="saveMenu">Save Item</button>
+            <button class="btn mutedBtn" id="clearMenu">Clear</button>
+          </div>
+          <div class="adminRows" id="menuRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="categoriesPanel">
+          <h3>Menu Categories</h3>
+          <p>Add, rename, or remove the categories used to organise menu items and the filter tabs on the customer page.</p>
+          <div class="adminForm">
+            <input type="hidden" id="catEditId" />
+            <div class="field"><label for="catNameInput">Category name</label><input id="catNameInput" placeholder="Seasonal" /></div>
+          </div>
+          <div class="formActions">
+            <button class="btn primary" id="saveCatBtn">Save Category</button>
+            <button class="btn mutedBtn" id="clearCatBtn">Clear</button>
+          </div>
+          <div class="adminRows" id="categoryRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="eventsPanel">
+          <h3>Events Board</h3>
+          <p>Publish weekly cafe programming: oud nights, poetry sessions, chess meetups, match screenings, and community events.</p>
+          <div class="adminForm">
+            <input type="hidden" id="eventId" />
+            <div class="field"><label for="eventTitle">Event title</label><input id="eventTitle" placeholder="Poetry Night" /></div>
+            <div class="field"><label for="eventTag">Tag</label><input id="eventTag" placeholder="THU" /></div>
+            <div class="field"><label for="eventVisible">Visibility</label><select id="eventVisible"><option value="true">Visible</option><option value="false">Hidden</option></select></div>
+            <div class="field full"><label for="eventMeta">Details</label><textarea id="eventMeta" placeholder="Thursday 8:30 PM - Open mic + featured poet"></textarea></div>
+          </div>
+          <div class="formActions">
+            <button class="btn primary" id="saveEvent">Save Event</button>
+            <button class="btn mutedBtn" id="clearEvent">Clear</button>
+          </div>
+          <div class="adminRows" id="eventRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="tablesPanel">
+          <h3>Table Availability</h3>
+          <p>Control table status separately for inside and outside mode.</p>
+          <div class="adminForm">
+            <input type="hidden" id="tableId" />
+            <div class="field"><label for="tableName">Table name (ID)</label><input id="tableName" placeholder="W1" /></div>
+            <div class="field"><label for="tableDesc">Description</label><input id="tableDesc" placeholder="Window" /></div>
+            <div class="field"><label for="tableCapacity">Capacity (seats)</label><input id="tableCapacity" type="number" min="1" placeholder="2" /></div>
+          </div>
+          <div class="formActions">
+            <button class="btn primary" id="saveTable">Save Table</button>
+            <button class="btn mutedBtn" id="clearTable">Clear</button>
+            <button class="btn danger" id="deleteTable" style="display:none">Delete Table</button>
+          </div>
+          <div class="formActions">
+            <div class="field" style="min-width:220px;"><label for="tableMode">Mode</label><select id="tableMode"><option value="inside">Inside</option><option value="outside">Outside</option></select></div>
+            <span class="smallNote">Available tables are clickable for customers. Busy, reserved, and closed tables are locked.</span>
+          </div>
+          <div class="adminRows" id="tableRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="reservationsPanel">
+          <h3>Reservations</h3>
+          <p>Customer reservation requests appear here after submission.</p>
+          <div class="formActions">
+            <button class="btn" id="clearDoneReservations">Delete Completed</button>
+            <button class="btn danger" id="clearAllReservations">Delete All</button>
+          </div>
+          <div class="adminRows" id="reservationRows"></div>
+        </section>
+
+
+
+        <section class="card cardPad adminPanel" id="cafesPanel">
+          <h3>Cafe Finder Manager</h3>
+          <p>Add discovery cards for the customer-side search, vibe filters, sorting, and surprise generator.</p>
+          <div class="adminForm">
+            <input type="hidden" id="cafeId" />
+            <div class="field"><label for="cafeNameInput">Name</label><input id="cafeNameInput" placeholder="Beit Al-Qahwa" /></div>
+            <div class="field"><label for="cafeAreaInput">Area</label><input id="cafeAreaInput" placeholder="Rashaya" /></div>
+            <div class="field"><label for="cafeVibeInput">Vibe</label><select id="cafeVibeInput"><option value="traditional">Traditional</option><option value="study">Study</option><option value="outdoor">Outdoor</option><option value="work">Work-friendly</option><option value="calm">Calm</option></select></div>
+            <div class="field"><label for="cafeTierInput">Price</label><select id="cafeTierInput"><option value="$">Budget</option><option value="$$">Mid-range</option><option value="$$$">Premium</option></select></div>
+            <div class="field"><label for="cafeRatingInput">Rating</label><input id="cafeRatingInput" type="number" min="1" max="5" step="0.1" placeholder="4.8" /></div>
+            <div class="field"><label for="cafeBadgeInput">Badge</label><input id="cafeBadgeInput" placeholder="Best view" /></div>
+            <div class="field"><label for="cafeVisibleInput">Visibility</label><select id="cafeVisibleInput"><option value="true">Visible</option><option value="false">Hidden</option></select></div>
+            <div class="field full"><label for="cafeDescInput">Description</label><textarea id="cafeDescInput"></textarea></div>
+          </div>
+          <div class="formActions"><button class="btn primary" id="saveCafe">Save Cafe Card</button><button class="btn mutedBtn" id="clearCafe">Clear</button></div>
+          <div class="adminRows" id="cafeRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="collectionsPanel">
+          <h3>Seasonal Collections</h3>
+          <p>Create curated website sections such as winter cafes, study tables, summer patios, Eid visits, or match nights.</p>
+          <div class="adminForm">
+            <input type="hidden" id="collectionId" />
+            <div class="field"><label for="collectionTitle">Title</label><input id="collectionTitle" /></div>
+            <div class="field"><label for="collectionTag">Tag</label><input id="collectionTag" placeholder="WINTER" /></div>
+            <div class="field"><label for="collectionVisible">Visibility</label><select id="collectionVisible"><option value="true">Visible</option><option value="false">Hidden</option></select></div>
+            <div class="field full"><label for="collectionDesc">Description</label><textarea id="collectionDesc"></textarea></div>
+          </div>
+          <div class="formActions"><button class="btn primary" id="saveCollection">Save Collection</button><button class="btn mutedBtn" id="clearCollection">Clear</button></div>
+          <div class="adminRows" id="collectionRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="galleryPanel">
+          <h3>Gallery Slider</h3>
+          <p>Upload a photo for each gallery slot - take one with the camera or pick from your device.</p>
+          <div class="adminForm">
+            <input type="hidden" id="galleryId" />
+            <div class="field full">
+              <label>Gallery Image</label>
+              <div class="imgUploadWrap">
+                <div class="imgPreviewBox" id="galleryImgPreview">
+                  <span class="imgNone" id="galleryImgNone">No image selected</span>
+                  <img id="galleryImgThumb" style="display:none" alt="Gallery preview">
+                </div>
+                <div class="imgUploadBtns">
+                  <label class="btn" for="galleryCameraIn">Camera</label>
+                  <input type="file" id="galleryCameraIn" accept="image/*" capture="environment" style="display:none">
+                  <label class="btn" for="galleryFileIn">Choose Photo</label>
+                  <input type="file" id="galleryFileIn" accept="image/*" style="display:none">
+                  <button class="btn" id="galleryImgEdit" style="display:none">Edit</button>
+                  <button class="btn danger" id="galleryImgClear" style="display:none">Remove</button>
+                </div>
+              </div>
+            </div>
+            <div class="field"><label for="galleryTitle">Title</label><input id="galleryTitle" /></div>
+            <div class="field"><label for="galleryVisible">Visibility</label><select id="galleryVisible"><option value="true">Visible</option><option value="false">Hidden</option></select></div>
+            <div class="field full"><label for="galleryCaption">Caption</label><textarea id="galleryCaption"></textarea></div>
+          </div>
+          <div class="formActions"><button class="btn primary" id="saveGallery">Save Gallery Slot</button><button class="btn mutedBtn" id="clearGallery">Clear</button></div>
+          <div class="adminRows" id="galleryRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="reviewsPanel">
+          <h3>Review Moderation</h3>
+          <p>Hide or delete customer reviews without changing the customer design.</p>
+          <div class="adminRows" id="reviewRows"></div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="settingsPanel">
+          <h3>Settings</h3>
+          <p>Update live notices and selected homepage text without changing the HTML layout.</p>
+          <div class="adminForm">
+            <div class="field full">
+              <label>Hero Background Image</label>
+              <div class="imgUploadWrap">
+                <div class="imgPreviewBox" id="heroImgPreview">
+                  <span class="imgNone" id="heroImgNone">No image selected</span>
+                  <img id="heroImgThumb" style="display:none" alt="Hero preview">
+                </div>
+                <div class="imgUploadBtns">
+                  <label class="btn" for="heroCameraIn">Camera</label>
+                  <input type="file" id="heroCameraIn" accept="image/*" capture="environment" style="display:none">
+                  <label class="btn" for="heroFileIn">Choose Photo</label>
+                  <input type="file" id="heroFileIn" accept="image/*" style="display:none">
+                  <button class="btn" id="heroImgEdit" style="display:none">Edit</button>
+                  <button class="btn danger" id="heroImgClear" style="display:none">Remove</button>
+                </div>
+              </div>
+            </div>
+            <div class="field full"><label for="announcement">Homepage announcement</label><textarea id="announcement" placeholder="Outdoor seating is closed tonight due to weather."></textarea></div>
+            <div class="field"><label for="brewingHeadingInput">Modal heading</label><input id="brewingHeadingInput" placeholder="Now Brewing" /></div>
+            <div class="field"><label for="brewingTitleInput">Modal title</label><input id="brewingTitleInput" placeholder="Audio cue" /></div>
+            <div class="field full"><label for="brewingBodyInput">Modal body</label><textarea id="brewingBodyInput"></textarea></div>
+            <div class="field full"><label for="vibeInside">Inside vibe line</label><input id="vibeInside" /></div>
+            <div class="field full"><label for="vibeOutside">Outside vibe line</label><input id="vibeOutside" /></div>
+            <div class="field"><label for="cafeAreaSetting">Cafe area</label><input id="cafeAreaSetting" placeholder="Rashaya Al Wadi, West Bekaa" /></div>
+            <div class="field"><label for="whatsappSetting">WhatsApp</label><input id="whatsappSetting" placeholder="+961..." /></div>
+            <div class="field"><label for="mapsSetting">Google Maps link</label><input id="mapsSetting" placeholder="https://maps.google.com/..." /></div>
+            <div class="field full socialSettings">
+              <div class="socialSettingsHead">
+                <b>Social links</b>
+                <span>Control the social icons shown in the customer footer.</span>
+              </div>
+              <div class="socialSettingRow">
+                <label class="checkField"><input type="checkbox" data-social-visible="instagram" checked> Instagram</label>
+                <input data-social-url="instagram" placeholder="https://instagram.com/..." />
+              </div>
+              <div class="socialSettingRow">
+                <label class="checkField"><input type="checkbox" data-social-visible="facebook" checked> Facebook</label>
+                <input data-social-url="facebook" placeholder="https://facebook.com/..." />
+              </div>
+              <div class="socialSettingRow">
+                <label class="checkField"><input type="checkbox" data-social-visible="whatsapp" checked> WhatsApp</label>
+                <input data-social-url="whatsapp" placeholder="https://wa.me/961..." />
+              </div>
+              <div class="socialSettingRow">
+                <label class="checkField"><input type="checkbox" data-social-visible="tiktok" checked> TikTok</label>
+                <input data-social-url="tiktok" placeholder="https://tiktok.com/..." />
+              </div>
+            </div>
+            <div class="field"><label for="openHourSetting">Opening hour</label><input id="openHourSetting" type="time" /></div>
+            <div class="field"><label for="closeHourSetting">Closing hour</label><input id="closeHourSetting" type="time" /></div>
+            <div class="field"><label for="newPin">Change owner PIN</label><input id="newPin" type="password" placeholder="New PIN" /></div>
+          </div>
+          <div class="formActions">
+            <button class="btn primary" id="saveSettings">Save Settings</button>
+          </div>
+        </section>
+
+        <section class="card cardPad adminPanel" id="dataPanel">
+          <h3>Backup and Restore</h3>
+          <p>Export your cafe data as JSON, or import a previous backup.</p>
+          <div class="formActions">
+            <button class="btn primary" id="exportData">Export JSON</button>
+            <button class="btn danger" id="resetData">Reset Demo Data</button>
+          </div>
+          <textarea id="backupBox" class="exportBox full" placeholder="Exported JSON appears here. Paste backup JSON here to import."></textarea>
+          <div class="formActions">
+            <button class="btn" id="importData">Import JSON</button>
+            <span class="smallNote">Copy this JSON before testing major edits. Tiny safety net, big value.</span>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <b id="toastTitle">Saved</b>
+    <span id="toastMsg">Dashboard updated.</span>
+  </div>
+
+  <div id="cropOverlay" class="cropOverlay" style="display:none">
+    <div class="cropModal">
+      <h4 class="cropTitle">Crop Image</h4>
+      <div class="cropStage" id="cropStage">
+        <img id="cropImg" draggable="false" alt="">
+        <div class="cropRegion" id="cropRegion">
+          <div class="cropHandle" data-dir="nw"></div>
+          <div class="cropHandle" data-dir="ne"></div>
+          <div class="cropHandle" data-dir="sw"></div>
+          <div class="cropHandle" data-dir="se"></div>
+        </div>
+      </div>
+      <canvas id="cropCanvas" style="display:none"></canvas>
+      <div class="formActions" style="margin-top:14px">
+        <button class="btn primary" id="cropConfirmBtn">Crop &amp; Use</button>
+        <button class="btn mutedBtn" id="cropCancelBtn">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="store.js"></script>
+  <script src="admin.js"></script>
+</body>
+</html>
+ 
+
+

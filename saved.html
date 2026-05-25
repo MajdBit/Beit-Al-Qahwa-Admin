@@ -1,0 +1,54 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Saved Items - Beit Al-Qahwa</title>
+  <meta name="description" content="Saved menu items for this Beit Al-Qahwa customer." />
+  <link rel="stylesheet" href="customer.css" />
+</head>
+<body class="savedPage">
+  <header>
+    <div class="container topbar">
+      <a class="brand" href="index.html" aria-label="Back to Beit Al-Qahwa home">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <h1>Beit Al-Qahwa <small>Saved menu picks</small></h1>
+        </div>
+      </a>
+
+      <nav aria-label="Saved items actions">
+        <a class="chip" href="index.html#menu">Menu</a>
+        <a class="chip active" href="saved.html">Saved Items</a>
+        <a class="chip" href="index.html#reserve">Your Table</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container savedMain">
+    <section>
+      <div class="sectionHeader">
+        <div>
+          <h2>Saved Items</h2>
+          <p>Your favorite menu picks live here on this browser.</p>
+        </div>
+        <div class="badge" id="savedCount">SAVED: 0</div>
+      </div>
+
+      <div class="card">
+        <div class="menuList" id="savedList"></div>
+      </div>
+    </section>
+  </main>
+
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <b id="toastTitle">Saved items updated</b>
+    <span id="toastMsg">Your saved menu list changed.</span>
+  </div>
+
+  <script src="store.js"></script>
+  <script src="saved.js"></script>
+</body>
+</html>
+
+

@@ -1,0 +1,536 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Beit Al-Qahwa - Customer Website</title>
+  <meta name="description" content="A Lebanese cafe website prototype with owner-controlled content." />
+  <link rel="stylesheet" href="customer.css" />
+</head>
+<body>
+<header>
+    <div class="container topbar">
+      <div class="brand" aria-label="Brand">
+        <div class="mark" aria-hidden="true"></div>
+        <div>
+          <h1>Beit Al-Qahwa <small>Lebanese cafe experience, digitized</small></h1>
+        </div>
+      </div>
+
+      <button class="navToggle" id="navToggle" type="button" aria-label="Open navigation" aria-controls="primaryNav" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <nav class="primaryNav" id="primaryNav" aria-label="Primary">
+        <button class="chip active" data-view="inside">Inside</button>
+        <button class="chip" data-view="outside">Outside</button>
+        <button class="chip" data-scroll="#menu">Menu</button>
+        <a class="chip" href="saved.html">Saved Items</a>
+        <button class="chip" data-scroll="#events">Events</button>
+        <button class="chip" data-scroll="#discover">Discover</button>
+        <button class="chip" data-scroll="#reserve">Your Table</button>
+        <button class="cta" id="openModal">Now Brewing</button>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container announcement" id="announcementBanner" hidden>
+    <span class="tag">OWNER NOTE</span>
+    <p id="announcementText"></p>
+  </div>
+
+  <div class="container hero">
+    <div class="heroGrid">
+      <div class="heroCard">
+        <div class="scene" aria-hidden="true"></div>
+        <div class="filmGrain" aria-hidden="true"></div>
+
+        <div class="heroContent">
+          <div class="kicker"><span class="dot"></span> Ahlan. Your table is ready.</div>
+          <h2 class="heroTitle">A Beirut cafe, in your browser.</h2>
+          <p class="heroLead">
+            Not a menu PDF. A full vibe operating model: sit inside for calm, sit outside for street energy.
+            Same coffee, different atmosphere.
+          </p>
+
+          <div class="heroActions">
+            <button class="btn primary" id="sitInside">
+              Sit Inside
+            </button>
+            <button class="btn" id="sitOutside">
+              Sit Outside
+            </button>
+            <button class="btn" data-scroll="#reserve">
+              Pick a Table
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <aside class="sideCard" aria-label="Experience selector">
+        <div class="sideTop">
+          <div>
+            <div class="arabic">Ahlan</div>
+            <div class="sub">
+              Choose the mode. The site shifts its content strategy and mood in real time.
+            </div>
+          </div>
+          <div class="badge" id="modeBadge">MODE: INSIDE</div>
+        </div>
+
+        <div class="toggleWrap" role="tablist" aria-label="Inside Outside toggles">
+          <button class="toggle active" id="toggleInside" role="tab" aria-selected="true">
+            <b>Inside</b><span>Quiet corner, study zone, slow sips.</span>
+          </button>
+          <button class="toggle" id="toggleOutside" role="tab" aria-selected="false">
+            <b>Outside</b><span>Street view, people watching, loud laughs.</span>
+          </button>
+        </div>
+
+        <div class="miniList" id="modeHighlights">
+          <div class="miniRow">
+            <div class="pill">01</div>
+            <div>
+              <b>Warm interior palette</b>
+              <p>Low-noise design language. High readability. Long-stay friendly.</p>
+            </div>
+          </div>
+          <div class="miniRow">
+            <div class="pill">02</div>
+            <div>
+              <b>Menu with micro-stories</b>
+              <p>Each cup carries context, not just ingredients.</p>
+            </div>
+          </div>
+          <div class="miniRow">
+            <div class="pill">03</div>
+            <div>
+              <b>Table-first UX</b>
+              <p>Reservations behave like selecting a real seat, not a bland form.</p>
+            </div>
+          </div>
+        </div>
+      </aside>
+    </div>
+  </div>
+
+  <main class="container">
+    <!-- Inside / Outside dynamic section -->
+    <section id="dynamic">
+      <div class="sectionHeader">
+        <div>
+          <h2 id="dynamicTitle">Inside the Cafe</h2>
+          <p id="dynamicDesc">Low-volume energy. The place where time forgets to move.</p>
+        </div>
+        <div class="badge" id="liveSignal">LIVE: AMBIENCE</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="cardPad" id="dynamicLeft">
+            <div class="profile">
+              <div class="avatar" aria-hidden="true">BR</div>
+              <div>
+                <b>Meet the Barista</b>
+                <span>Human-scale hospitality. Specialty execution. Zero performance theater.</span>
+              </div>
+            </div>
+
+            <div class="facts">
+              <div class="fact">
+                <b>Signature</b>
+                <p>Lebanese coffee in rakwe style, calibrated per cup. Strong, clean finish.</p>
+              </div>
+              <div class="fact">
+                <b>Roast profile</b>
+                <p>Medium-dark, chocolate notes, minimal acidity. Built for long conversations.</p>
+              </div>
+              <div class="fact" id="factMode">
+                <b>Inside mode</b>
+                <p>Lower tempo playlists, calmer lighting, productivity-friendly tables.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card" id="outsideFeedCard">
+          <div class="menuTop">
+            <div>
+              <b style="display:block;font-size:14px;">Today's Conversations</b>
+              <span style="color:var(--muted);font-size:12.5px;">A little Lebanese truth, served hot.</span>
+            </div>
+            <span class="tag" id="feedTag">INSIDE</span>
+          </div>
+          <div class="quote" id="quoteBox">
+            "Politics tastes better with coffee."
+            <small>Regular, table 4</small>
+          </div>
+          <div class="list" id="miniFeed">
+            <div class="event">
+              <div>
+                <b>Chess corner</b>
+                <span>Boards available, no ego, just strategy.</span>
+              </div>
+              <div class="tag">OPEN</div>
+            </div>
+            <div class="event">
+              <div>
+                <b>Study hour</b>
+                <span>Low music, charging points, silence respected.</span>
+              </div>
+              <div class="tag">DAILY</div>
+            </div>
+            <div class="event">
+              <div>
+                <b>Oud set</b>
+                <span>Short live session, maximum mood uplift.</span>
+              </div>
+              <div class="tag">FRI</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Menu -->
+    <section id="menu">
+      <div class="sectionHeader">
+        <div>
+          <h2>Menu</h2>
+          <p>Lebanese staples plus modern cafe essentials. Short copy, high signal.</p>
+        </div>
+        <div class="badge" id="menuCount">ITEMS: 8</div>
+      </div>
+
+      <div class="card">
+        <div class="menuTop">
+          <div class="tabs" id="menuTabs" role="tablist" aria-label="Menu categories">
+            <button class="tab active" data-cat="all">All</button>
+          </div>
+
+          <div class="search" role="search">
+            <span class="mag"></span>
+            <input id="menuSearch" placeholder="Search: coffee, rakwe, iced..." aria-label="Search menu"/>
+          </div>
+        </div>
+
+        <div class="menuList" id="menuList"></div>
+      </div>
+    </section>
+
+    <!-- Events -->
+    <section id="events">
+      <div class="sectionHeader">
+        <div>
+          <h2>Events Board</h2>
+          <p>Community programming, Beirut-style: music, poetry, match nights, and a chess table that never rests.</p>
+        </div>
+        <div class="badge">WEEKLY CADENCE</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="menuTop">
+            <div>
+              <b style="display:block;font-size:14px;">This Week</b>
+              <span style="color:var(--muted);font-size:12.5px;">Small events, high retention.</span>
+            </div>
+            <span class="tag" id="weekTag">INSIDE MODE</span>
+          </div>
+          <div class="list" id="eventsList"></div>
+        </div>
+
+        <div class="card">
+          <div class="menuTop">
+            <div>
+              <b style="display:block;font-size:14px;">House Rules</b>
+              <span style="color:var(--muted);font-size:12.5px;">Culture guardrails. Keeps the vibe intact.</span>
+            </div>
+            <span class="tag">POLICY</span>
+          </div>
+          <div class="cardPad">
+            <div class="fact">
+              <b>Stay as long as you like</b>
+              <p>Long sits are part of the product. Ordering cadence stays flexible.</p>
+            </div>
+            <div class="fact" style="margin-top:10px;">
+              <b>Respect quiet zones</b>
+              <p>Inside mode prioritizes focus. Outside mode prioritizes energy.</p>
+            </div>
+            <div class="fact" style="margin-top:10px;">
+              <b>Debate allowed, disrespect not</b>
+              <p>Argue like grownups, not like comment sections.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <!-- Discovery Tools -->
+    <section id="discover">
+      <div class="sectionHeader">
+        <div>
+          <h2>Discover Your Cafe Mood</h2>
+          <p>Search, filter, save favorites, try a mood quiz, or let the site pick a table-worthy plan for tonight.</p>
+        </div>
+        <div class="badge" id="openStatus">OPEN STATUS</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="menuTop">
+            <div>
+              <b style="display:block;font-size:14px;">Cafe Finder</b>
+              <span style="color:var(--muted);font-size:12.5px;">Location, vibe, price, rating, favorites, and surprise mode.</span>
+            </div>
+            <button class="btn" id="surpriseBtn">Surprise Me</button>
+          </div>
+          <div class="cardPad">
+            <div class="reserveForm">
+              <div class="field"><label for="cafeSearch">Search cafes</label><input id="cafeSearch" placeholder="Rashaya, study, view..." /></div>
+              <div class="field"><label for="vibeFilter">Vibe</label><select id="vibeFilter"><option value="all">All vibes</option><option value="traditional">Traditional</option><option value="study">Study</option><option value="outdoor">Outdoor</option><option value="work">Work-friendly</option><option value="calm">Calm</option></select></div>
+              <div class="field"><label for="priceFilter">Price</label><select id="priceFilter"><option value="all">All prices</option><option value="$">Budget</option><option value="$$">Mid-range</option><option value="$$$">Premium</option></select></div>
+              <div class="field"><label for="sortFilter">Sort</label><select id="sortFilter"><option value="rating">Highest rated</option><option value="name">Name</option><option value="price">Price tier</option></select></div>
+            </div>
+            <div class="adminRows" id="cafeResults" style="margin-top:14px;"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="menuTop"><div><b style="display:block;font-size:14px;">Mood Quiz</b><span style="color:var(--muted);font-size:12.5px;">A tiny recommendation engine.</span></div><span class="tag">QUIZ</span></div>
+          <div class="cardPad">
+            <div class="field"><label for="quizIntent">What do you need?</label><select id="quizIntent"><option value="study">Study / focus</option><option value="outdoor">Fresh air / view</option><option value="traditional">Lebanese mood</option><option value="work">Remote work</option><option value="calm">Calm reset</option></select></div>
+            <div class="field" style="margin-top:10px;"><label for="quizGroup">Who is coming?</label><select id="quizGroup"><option>Alone</option><option>Friend</option><option>Family</option><option>Work meeting</option></select></div>
+            <div class="formActions" style="margin-top:12px;"><button class="btn primary" id="quizBtn">Find My Spot</button></div>
+            <div class="fact" id="quizResult" style="margin-top:12px;"><b>Your result appears here</b><p>Choose your mood and the website will recommend a cafe, drink, and table type.</p></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Collections and Gallery -->
+    <section id="collections">
+      <div class="sectionHeader">
+        <div><h2>Seasonal Collections</h2><p>Editorial cafe collections for winter, summer, study days, family visits, and local events.</p></div>
+        <div class="badge">CURATED</div>
+      </div>
+      <div class="grid">
+        <div class="card"><div class="list" id="collectionsList"></div></div>
+        <div class="card">
+          <div class="menuTop"><div><b style="display:block;font-size:14px;">Gallery Slider</b><span style="color:var(--muted);font-size:12.5px;">Owner-controlled visual slots.</span></div><span class="tag" id="galleryCount">0/0</span></div>
+          <div class="cardPad">
+            <div class="galleryFrame" id="galleryFrame"></div>
+            <div class="formActions" style="margin-top:12px;"><button class="btn" id="galleryPrev">Prev</button><button class="btn" id="galleryNext">Next</button></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews -->
+    <section id="reviews">
+      <div class="sectionHeader">
+        <div><h2>Guest Reviews</h2><p>Customers can leave lightweight local reviews; the owner can hide unsuitable entries from the dashboard.</p></div>
+        <div class="badge" id="reviewCount">REVIEWS</div>
+      </div>
+      <div class="grid">
+        <div class="card">
+          <div class="ratingOverview">
+            <div class="ratingScore" id="ratingScore">
+              <div class="scoreNumber" id="scoreNumber">-</div>
+              <div class="scoreLabel">Overall Rating</div>
+            </div>
+            <div class="ratingBreakdown">
+              <div class="ratingBar" id="ratingBar5">
+                <span class="label">5*</span>
+                <div class="bar"><div class="fill"></div></div>
+                <span class="count" id="count5">0 people</span>
+              </div>
+              <div class="ratingBar" id="ratingBar4">
+                <span class="label">4*</span>
+                <div class="bar"><div class="fill"></div></div>
+                <span class="count" id="count4">0 people</span>
+              </div>
+              <div class="ratingBar" id="ratingBar3">
+                <span class="label">3*</span>
+                <div class="bar"><div class="fill"></div></div>
+                <span class="count" id="count3">0 people</span>
+              </div>
+              <div class="ratingBar" id="ratingBar2">
+                <span class="label">2*</span>
+                <div class="bar"><div class="fill"></div></div>
+                <span class="count" id="count2">0 people</span>
+              </div>
+              <div class="ratingBar" id="ratingBar1">
+                <span class="label">1*</span>
+                <div class="bar"><div class="fill"></div></div>
+                <span class="count" id="count1">0 people</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="list" id="reviewsList"></div>
+          <div class="formActions" id="reviewsActions" style="display:none;margin-top:12px;">
+            <button class="btn" id="showAllReviewsBtn">Show All Reviews</button>
+          </div>
+        </div>
+        <div class="card cardPad">
+          <h3 style="margin-top:0;">Leave a Review</h3>
+          <div class="reserveForm">
+            <div class="field"><label for="reviewName">Name</label><input id="reviewName" placeholder="Your name" /></div>
+            <div class="field"><label for="reviewRating">Rating</label><select id="reviewRating"><option>5</option><option>4</option><option>3</option><option>2</option><option>1</option></select></div>
+            <div class="field full"><label for="reviewText">Review</label><input id="reviewText" placeholder="What was the vibe?" /></div>
+          </div>
+          <div class="formActions" style="margin-top:12px;"><button class="btn primary" id="submitReview">Submit Review</button></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reservations -->
+    <section id="reserve">
+      <div class="sectionHeader">
+        <div>
+          <h2>Your Table</h2>
+          <p>Select a seat like you're walking in. Window, street view, quiet corner, group table.</p>
+        </div>
+        <div class="badge" id="selectedBadge">SELECTED: -</div>
+      </div>
+
+      <div class="grid">
+        <div class="card">
+          <div class="floorTop">
+            <div>
+              <b style="display:block;font-size:14px;">Floor Plan</b>
+              <span class="meta" id="planMeta">Some tables lock when busy. Mode impacts availability.</span>
+            </div>
+            <span class="tag" id="planTag">INSIDE</span>
+          </div>
+
+          <div class="floorWrap">
+            <div class="plan" id="plan"></div>
+
+            <div class="reserveForm">
+              <div class="field">
+                <label for="name">Name</label>
+                <input id="name" placeholder="Majd" autocomplete="name" required/>
+              </div>
+              <div class="field">
+                <label for="phone">Phone</label>
+                <input id="phone" placeholder="+961..." inputmode="tel" autocomplete="tel" required/>
+              </div>
+              <div class="field">
+                <label for="date">Date</label>
+                <input id="date" type="date" required/>
+              </div>
+              <div class="field">
+                <label for="time">Time</label>
+                <input id="time" type="time" value="18:30" required/>
+              </div>
+              <div class="field">
+                <label for="guests">Guests</label>
+                <select id="guests" required>
+                  <option>1</option><option selected>2</option><option>3</option><option>4</option><option>5</option><option>6</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="note">Note</label>
+                <input id="note" placeholder="Window seat, please."/>
+              </div>
+            </div>
+
+            <div class="formActions">
+              <button class="btn primary" id="confirm">
+                Confirm Reservation
+              </button>
+              <div class="note" id="reserveNote">No table selected yet. Pick one above to activate confirmation.</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="card">
+          <div class="menuTop">
+            <div>
+              <b style="display:block;font-size:14px;">Live Vibe Feed</b>
+              <span style="color:var(--muted);font-size:12.5px;">Mock Instagram module, production-ready layout.</span>
+            </div>
+            <span class="tag">SOCIAL</span>
+          </div>
+          <div class="cardPad">
+            <div class="fact">
+              <b>Table 7 energy</b>
+              <p id="vibeLine">Soft playlist, low-latency calm, classic Beirut concentration.</p>
+            </div>
+            <div class="facts" style="margin-top:12px;">
+              <div class="fact">
+                <b>UGC slot 1</b>
+                <p>"Sahtein. This coffee is a reset button."</p>
+              </div>
+              <div class="fact">
+                <b>UGC slot 2</b>
+                <p>"Street view hits different with an iced latte."</p>
+              </div>
+              <div class="fact">
+                <b>UGC slot 3</b>
+                <p>"Chess + rakwe = Beirut therapy."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div class="container foot">
+        <div class="socialLinks" id="socialLinks" aria-label="Social links"></div>
+        <div class="proverb">&ldquo;&#1575;&#1604;&#1602;&#1607;&#1608;&#1577; &#1593;&#1604;&#1609; &#1605;&#1607;&#1604;&#1603;.&rdquo;</div>
+        <div class="copyright">&copy; <span id="year"></span> Beit Al-Qahwa. Prototype UI.</div>
+      </div>
+    </footer>
+  </main>
+
+  <!-- Modal -->
+  <div class="modalBack" id="modalBack" role="dialog" aria-modal="true" aria-label="Now Brewing">
+    <div class="modal">
+      <div class="modalTop">
+        <b id="brewingHeading">Now Brewing</b>
+        <button class="x" id="closeModal" aria-label="Close">X</button>
+      </div>
+      <div class="modalBody">
+        <div class="fact">
+          <b id="brewingTitle">Audio cue (optional in production)</b>
+          <p id="brewingBody">
+            Add a subtle "coffee pour" sound on page load. Keep it off by default, enable via a user toggle
+            to stay accessibility-native and policy-aligned.
+          </p>
+        </div>
+        <div class="fact" style="margin-top:10px;">
+          <b>Brand system</b>
+          <p>
+            Warm neutrals, coffee-gold accent, Arabic microcopy, and table-first UX.
+            Translation layer can scale Arabic/English without redesign.
+          </p>
+        </div>
+        <div class="formActions" style="margin-top:12px;">
+          <button class="btn primary" id="jumpReserve">Go to "Your Table"</button>
+          <a class="btn" id="whatsappLink" href="#" target="_blank" rel="noopener">WhatsApp</a>
+          <a class="btn" id="mapsLink" href="#" target="_blank" rel="noopener">Map</a>
+          <span class="note">Prototype-level. Swap placeholders with real media and CMS later.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast -->
+  <div class="toast" id="toast" role="status" aria-live="polite">
+    <b id="toastTitle">Reserved</b>
+    <span id="toastMsg">Your table is locked in. See you soon.</span>
+  </div>
+
+  <script src="store.js"></script>
+  <script src="customer.js"></script>
+</body>
+</html>
+
+
